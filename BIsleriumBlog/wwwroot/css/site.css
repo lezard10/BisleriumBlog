@@ -1,22 +1,231 @@
 html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
   position: relative;
   min-height: 100%;
 }
 
+
 body {
-  margin-bottom: 60px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #92C7CF;
+    color: #fff;
+    min-height: 100vh;
+    /* Make sure the body covers the entire viewport height */
+    display: flex;
+    flex-direction: column;
 }
+.header1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sort-dropdown {
+    position: relative;
+}
+
+.sort-button {
+    background-color: #444;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #222;
+    min-width: 120px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        color: #fff;
+        padding: 10px;
+        text-decoration: none;
+        display: block;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #444;
+        }
+
+.sort-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+header {
+    background-color: #FBF9F1;
+    height: 80px;
+    color: black;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+        nav {
+            display: flex;
+        }
+
+    nav a {
+        color: black;
+        text-decoration: none;
+        margin-left: 20px;
+        transition: color 0.3s ease;
+    }
+
+        nav a:hover {
+            color: #ffd700;
+        }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.posts-container {
+    padding: 20px 0;
+}
+
+.post {
+    background-color: white;
+    color: black;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.profile-name {
+    font-weight: bold;
+    font-size: 16px;
+    opacity: 0.8; /* Added opacity */
+}
+
+.post-uploaded-time {
+    opacity: 0.6;
+    font-size: 12px;
+}
+
+.post-content {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.post-actions {
+    display: flex;
+    align-items: center;
+}
+
+.action-button {
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 4px;
+    background-color: #444;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 40px;
+}
+
+    .action-button:hover {
+        background-color: #666;
+    }
+
+.post-menu {
+    position: relative;
+}
+
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #333; /* Changed background color */
+    border-radius: 4px;
+    top: 30px;
+    right: 0;
+    z-index: 1;
+    padding: 8px 0;
+    width: 120px; /* Adjust width as needed */
+}
+
+.post-menu:hover .menu-dropdown {
+    display: block;
+}
+
+.menu-item {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+    .menu-item:hover {
+        background-color: #444;
+    }
+.trending-section {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.trending-cards {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.trending-card {
+    width: 300px;
+    background-color: black;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.trending-card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.trending-card-content {
+    margin-bottom: 10px;
+}
+
+.trending-card-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.trending-card-image {
+    height: 200px;
+    max-width: 250px;
+}
+

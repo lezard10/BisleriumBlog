@@ -2,46 +2,116 @@
 
 @{
     ViewData["Title"] = "Index";
+    var sortedModel = Model.OrderByDescending(x => x.Upvotes*2+x.Downvotes*-1).Take(3);
+    var sortedModel2 = Model.OrderByDescending(x => x.Upvotes * 2 + x.Downvotes * -1);
+    bool isLoggedIn = User.Identity.IsAuthenticated;
 }
+<h2 style="padding: 5px; color: black; text-align: center; font-weight:bold;">Trending Now</h2>
+<div class="trending-section">
+    <div class="trending-cards">
+        @foreach (var item in sortedModel)
+        {
+            <div class="trending-card">
+                <div class="trending-card-title">@Html.DisplayFor(modelItem => item.Title)</div>
+                <div class="trending-card-content">
+                    <p>@Html.DisplayFor(modelItem => item.Body)</p>
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img class="trending-card-image" src="..\images\@Html.DisplayFor(modelItem => item.ImageUrl)" alt="Blog Image"/>
+                    }
+                    else
+                    {
+                        <span>No Image Available</span>
+                    }
 
-<h1>Index</h1>
+                </div>
+                <div class="trending-card-actions">
+                    <a href="#" class="action-button"><i class="fas fa-thumbs-up" style="margin-right: 10px;"></i>| @item.Upvotes |</a>
+                    <a href="#" class="action-button"><i class="fas fa-thumbs-down" style="margin-right: 10px;"></i>| @item.Downvotes |</a>
+                    <a href="#" class="action-button"><i class="fas fa-comment-alt"></i></a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<div class="header1">
+    <div>
+        <button style="background-color:black; border-radius: 50px; height: 50px; width:200px;">
+            @if (isLoggedIn)
+            {
+                <a asp-action="Create" style="text-decoration:none; color:white;">Create New</a>
+            }
+            else
+            {
+                <a asp-page="/Account/Login" asp-area="Identity" style="text-decoration:none; color:white;">Create New</a>
+            }
+        </button>
+    </div>
+    <div class="sort-dropdown">
+        <button class="sort-button">Sort By</button>
+        <div class="dropdown-content">
+            <a asp-action="SortByPopularity">Popularity</a> |
+            <a asp-action="SortRandomly">Random</a> |
+            <a asp-action="SortByRecency">Recency</a>
+        </div>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Body)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Body)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<hr />
+
+
+<div class="container">
+    <div class="posts-container">
+
+        @foreach (var item in Model)
+        {
+            <div class="post">
+                <!-- Post header -->
+                <div class="post-header">
+                    <!-- Profile name and uploaded time -->
+                    <div>
+                        <div class="profile-name">@Html.DisplayFor(modelItem => item.UserId)</div>
+                        <div class="post-uploaded-time">@Html.DisplayFor(modelItem => item.CreatedDate)</div>
+                    </div>
+                    <!-- Post menu -->
+                    <div class="post-menu">
+                        <a class="action-button"><i class="fas fa-ellipsis-v"></i></a>
+                        <div class="menu-dropdown">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="menu-item">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="menu-item">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Post title, body, and content -->
+                <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
+                <p>@Html.DisplayFor(modelItem => item.Body)</p>
+                <div class="post-content">
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="..\images\@Html.DisplayFor(modelItem => item.ImageUrl)" alt="Blog Image" style="max-width: 800px; max-height: 400px;" />
+                    }
+                    else
+                    {
+                        <span>No Image Available</span>
+                    }
+                </div>
+                <!-- Post actions: Upvote, Downvote, and Comment buttons -->
+                <div class="post-actions">
+                    <!-- Upvote Button -->
+                    <form method="post" action="@Url.Action("Upvote", "Home", new { id = item.Id })">
+                        <button type="submit" class="action-button"><i class="fas fa-thumbs-up" style="margin-right: 10px;"></i>| @item.Upvotes |</button>
+                    </form>
+                    <!-- Downvote Button -->
+                    <form method="post" action="@Url.Action("Downvote", "Home", new { id = item.Id })">
+                        <button type="submit" class="action-button"><i class="fas fa-thumbs-down" style="margin-right: 10px;"></i>| @item.Downvotes |</button>
+                    </form>
+                    <!-- Comment Button -->
+                    <a asp-action="Details" asp-route-id="@item.Id" class="action-button" ><i class="fas fa-comment-alt"></i></a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<hr />

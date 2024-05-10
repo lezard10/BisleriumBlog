@@ -9,26 +9,30 @@
 <div>
     <h4>Blogs</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-    </dl>
+    <div class="post">
+        <!-- Post header -->
+        <div class="post-header">
+            <!-- Profile name and uploaded time -->
+            <div>
+                <div class="profile-name">@Html.DisplayFor(model => model.UserId)</div>
+                <div class="post-uploaded-time">@Html.DisplayFor(model => model.CreatedDate)</div>
+            </div>
+
+        </div>
+        <!-- Post title, body, and content -->
+        <h3>@Html.DisplayFor(model => model.Title)</h3>
+        <p>@Html.DisplayFor(model => model.Body)</p>
+        <div class="post-content">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="~/images/@Html.DisplayFor(model => model.ImageUrl)" style="height: 300px;" />
+            }
+            else
+            {
+                <span>No Image Available</span>
+            }
+        </div>
+    </div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

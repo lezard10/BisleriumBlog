@@ -7,6 +7,8 @@ namespace BIsleriumBlog.Migrations
     /// <inheritdoc />
     public partial class Blogs : Migration
     {
+        public string UserId { get; internal set; }
+
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BIsleriumBlog.Models
 {
@@ -15,5 +16,13 @@ namespace BIsleriumBlog.Models
 
         [Required]
         public string ImageUrl { get; set; }
+
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public int Upvotes { get; set; }
+
+        public int Downvotes { get; set; }
+
+        public string? UserId { get; set; }
     }
 }

@@ -23,10 +23,20 @@
                 <span asp-validation-for="Body" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Upload Image</label>
-                <input asp-for="ImageUrl" type="file" name="ImageUrl" accept="image /*" class="form-control" />
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input asp-for="ImageUrl" id="imageInput" type="file" name="ImageUrl" accept="image/*" class="form-control" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
+               <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserID"></select>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -38,6 +48,23 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.getElementById("imageInput").addEventListener("change", function () {
+            var fileInput = this;
+            if (fileInput.files.length > 0) {
+                var fileSize = fileInput.files[0].size; // in bytes
+                var maxSize = 3 * 1024 * 1024; // 3MB in bytes
+
+                if (fileSize > maxSize) {
+                    alert("File size exceeds the limit of 3MB. Please select a smaller image.");
+                    fileInput.value = ''; // Clear the selected file
+                }
+            }
+        });
+    </script>
 }
